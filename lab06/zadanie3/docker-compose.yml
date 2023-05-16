@@ -1,0 +1,29 @@
+services:
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    networks:
+      - frontend_network
+    ports:
+      - "3000:3000"
+  backend:
+    container_name: backend
+    build: ./backend
+    networks:
+      - frontend_network
+      - backend_network
+    ports:
+      - "8080:8080"
+  database:
+    container_name: database
+    build: ./database
+    networks:
+      - backend_network
+    ports:
+      - "27017:27017"
+
+networks:
+  frontend_network:
+    driver: bridge
+  backend_network:
+    driver: bridge

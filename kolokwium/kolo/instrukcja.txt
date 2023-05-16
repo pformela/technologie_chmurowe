@@ -1,0 +1,1 @@
+W celu odpalenia aplikacji należy odpalić skrypt `script.sh`.
