@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab11zadanie01
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lab11zadanie01
+  template:
+    metadata:
+      labels:
+        app: lab11zadanie01
+    spec:
+      containers:
+        - name: lab11zadanie01
+          image: pformela/zadanie01-app:v2
+          ports:
+            - containerPort: 3000
