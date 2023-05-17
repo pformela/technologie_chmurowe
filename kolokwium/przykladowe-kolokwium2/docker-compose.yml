@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - net_A
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - net_A
+  express-app:
+    container_name: express-app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - net_A
+    depends_on:
+      - mongo
+      - redis
+
+networks:
+  net_A:
+    external: false
+    name: net_A
+    driver: bridge
