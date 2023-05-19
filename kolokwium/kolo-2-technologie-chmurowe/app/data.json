@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "_id": "1",
+      "name": "Jan Kowalski",
+      "email": "jan.kowalski@example.com",
+      "age": 30
+    },
+    {
+      "_id": "2",
+      "name": "Anna Nowak",
+      "email": "anna.nowak@example.com",
+      "age": 25
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+version: "3.9"
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+    networks:
+      - my_network
+  nginx:
+    container_name: nginx
+    environment:
+      - SERVER_HOST=server
+      - SERVER_PORT=3000
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - my_network
+  server:
+    container_name: server
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017
+    volumes:
+      - ./app:/app
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - my_network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/users || exit 1"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    depends_on:
+      - mongo
+      - nginx
+
+networks:
+  my_network:
+    external: false
+    name: my_network
+    driver: bridge

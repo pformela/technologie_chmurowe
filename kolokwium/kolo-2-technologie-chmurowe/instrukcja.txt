@@ -1,0 +1,3 @@
+Docker compose należy odpalić przy pomocy skryptu bash: "bash compose-script.sh"
+
+Obraz wieloarchitekturowy został wrzucony do docker hub za pomoca skryptu "build-script.sh", potwierdzenie, że znajduje się on tam jest na screenie o nazwie dockerhub.png znajdującym się w tym folderze.
