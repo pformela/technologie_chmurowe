@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microservice-b2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microservice-b2
+  template:
+    metadata:
+      labels:
+        app: microservice-b2
+    spec:
+      containers:
+        - name: microservice-b2
+          image: pformela/microservice_b_2:latest
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: "1"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: microservice-b2
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    app: microservice-b2
